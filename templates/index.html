@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Input Form</title>
+    <style>
+        body {
+            font-family: Times New Roman, sans-serif;
+            background-color: #f0f0f1;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #companyFields {
+            margin-top: 20px;
+        }
+
+        .graph-container {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        img.graph {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <title>Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f1;
+            margin: 0;
+            padding: 0;
+        }
+
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .image-gallery img {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+</head>
+<body>
+    <div class="container">
+        <h2>Enter Ticker Symbols and Company Names</h2>
+        <form action="/process_form" method="post">
+            <label for="numCompanies">Number of Companies:</label>
+            <input type="number" id="numCompanies" name="numCompanies" min="1" onchange="addFields()"><br>
+
+            <div id="companyFields">
+                <!-- Dynamic input fields will be added here -->
+            </div>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div class="graph-container">
+        <h2>Result Graph</h2>
+        {% if graph_exists %}
+            <img src="{{ url_for('static', filename='graph.png') }}" alt="Graph" class="graph">
+        {% else %}
+            <!-- No graph available -->
+            <p>No graph available.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        function addFields() {
+            var numCompanies = document.getElementById("numCompanies").value;
+            var container = document.getElementById("companyFields");
+            container.innerHTML = ""; // Clear previous fields
+            
+            for (var i = 1; i <= numCompanies; i++) {
+                var div = document.createElement("div");
+                div.innerHTML = `
+                    <label for="ticker${i}">Ticker Symbol:</label>
+                    <input type="text" id="ticker${i}" name="ticker${i}"><br>
+                    <label for="company${i}">Company Name:</label>
+                    <input type="text" id="company${i}" name="company${i}"><br>
+                `;
+                container.appendChild(div);
+            }
+        }
+    </script>
+</body>
+</html>
