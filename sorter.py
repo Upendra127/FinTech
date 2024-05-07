@@ -12,10 +12,10 @@ def sort_key(directory):
 
 def sorter(ticker):
     # Parent directory containing the folders
-    sec_filings = Path('/Users/chinu/Desktop/FinTech copy/sec-edgar-filings')
+    sec_filings = Path('./sec-edgar-filings')
     parent_dir = os.path.join(sec_filings,ticker,"10-K")
 
-    trg = Path("/Users/chinu/Desktop/FinTech copy/data/form10k")
+    trg = Path("./data/form10k")
     # List all directories in the parent directory
     directories = [d for d in os.listdir(parent_dir) if os.path.isdir(os.path.join(parent_dir, d))]
 

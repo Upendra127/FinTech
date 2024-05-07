@@ -24,10 +24,10 @@ def delete_files_in_directory(directory):
 
 # Example usage:
 directories = []
-directories.append("/Users/chinu/Desktop/FinTech copy/sec-edgar-filings")
-directories.append("/Users/chinu/Desktop/FinTech copy/data/form10k.parsed")
-directories.append("/Users/chinu/Desktop/FinTech copy/data/mda")
-directories.append("/Users/chinu/Desktop/FinTech copy/data/form10k")
-# directories.append("/Users/chinu/Desktop/FinTech copy/static")
+directories.append("./sec-edgar-filings")
+directories.append("./data/form10k.parsed")
+directories.append("./data/mda")
+directories.append("./data/form10k")
+# directories.append("./static")
 for dir in tqdm(directories):
     delete_files_in_directory(dir)

@@ -49,7 +49,7 @@ def main():
     parser = create_parser()
     args = parser.parse_args()
 
-    form_dir = Path("/Users/chinu/Desktop/FinTech copy/data/form10k")
+    form_dir = Path("./data/form10k")
 
     # Normalize forms
     parsed_form_dir = os.path.join(args.data_dir, "form10k.parsed")

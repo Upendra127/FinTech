@@ -12,7 +12,7 @@ tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased')
 
 texts = []
-directory = "/Users/chinu/Desktop/FinTech copy/data/mda"
+directory = "./data/mda"
 for filename in os.listdir(directory):
     filepath = os.path.join(directory, filename)
     with open(filepath, "r") as file:
@@ -31,7 +31,7 @@ for t in texts:
     vals.append((torch.matmul(get_embed(t), get_embed(new_text).T))[0].item())
 
 #checking if static dir is there or not
-static_dir = "/Users/chinu/Desktop/FinTech copy/static"
+static_dir = "./static"
 if not os.path.exists(static_dir):
     os.makedirs(static_dir)
 
