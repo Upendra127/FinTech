@@ -25,7 +25,7 @@
             display: flex;
         }
         .left-box {
-            width: 40%;
+            width: 60%;
             padding: 30px;
             background-color: #e3d1f4; /* Light lavender background */
             color: #333; /* Dark text */
@@ -71,9 +71,30 @@
         input[type="submit"]:hover {
             background-color: #4b0082; /* Darker purple background on hover */
         }
-        .graph-box {
-            margin-top: 20px;
+        .graph-container {
+            width: 40%;
+            padding: 30px;
+            background-color: #e3d1f4; /* Light lavender background */
+            color: #333; /* Dark text */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .loading-animation {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
             text-align: center;
+            font-size: 18px;
+            color: #666;
+            background-color: #fff; /* Optional: Add background color */
+            padding: 20px; /* Optional: Add padding */
+            display: none; /* Initially hide the loading animation */
+        }
+        .graph-box {
+            margin-bottom: 20px;
             display: none;
         }
         .graph-box img {
@@ -84,35 +105,42 @@
         }
         .company-info {
             font-size: 18px;
-            margin-bottom: 20px;
+            color: #333;
         }
         .markdown {
             font-size: 18px;
             color: #666; /* Grey text */
             margin-bottom: 10px;
-        }
+        }   
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="left-box">
-            <div class="markdown">Choose number of companies:</div>
-            <select id="numCompanies">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
-            <button onclick="showInputs()">Submit</button>
-        </div>
-        <div class="right-box" id="companyEnteringBox" style="display: none;">
-            <div id="companyFields"></div>
-            <input type="submit" value="Submit" onclick="collectData()">
+        <div class="center-box">
+            <!-- Row 1: Input form -->
+            <div class="row" id="inputFormRow">
+                <div class="left-box">
+                    <div class="markdown">Choose number of companies:</div>
+                    <select id="numCompanies">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                    <button onclick="showInputs()">Submit</button>
+                </div>
+                <div class="right-box" id="companyEnteringBox" style="display: none;">
+                    <div id="companyFields"></div>
+                    <input type="submit" value="Submit" onclick="collectData()">
+                </div>
+            </div>
+            <!-- Row 2: Loading animation and Graph boxes -->
+            <div class="row" id="graphRow" style="display: none;">
+                <div class="loading-animation">Loading...</div>
+                <div id="graphBoxes"></div>
+            </div>
         </div>
     </div>
 
-    <div class="graph-container">
-        <!-- Graph boxes will be displayed here -->
-    </div>
 
     <script>
         function showInputs() {
@@ -149,6 +177,10 @@
 
             // Use 'data' object containing numCompanies and companies array
             console.log("Data to be sent:", data);
+
+            document.querySelectorAll('.graph-container').forEach(container => {
+            container.innerHTML = '<div class="loading"></div>';
+            });
 
             // Post data to server
             fetch('/process_form', {
