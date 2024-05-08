@@ -5,7 +5,6 @@ from tqdm import tqdm
 import subprocess
 import os
 from sorter import sorter
-from deleter import delete_files_in_directory
 
 app = Flask(__name__)
 
@@ -29,6 +28,7 @@ def process_form():
     print("Companies data:", companies)
     print('Data received successfully')
     tickers = []
+    directories = []
     for company in companies:
         ticker = company[0]
         tickers.append(ticker)
