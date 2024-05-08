@@ -15,17 +15,27 @@ def index():
 def process_form():
     # Get the number of companies from the form
     count = 0
-    num_companies = int(request.form['numCompanies'])
-    print(num_companies)
-    # Create a list to store the company data
-    companies = []
+    data = request.json  # Access the JSON data sent from the client
+    num_companies = data['numCompanies']
+    companies = data['companies']
+    print("Number of companies:", num_companies)
+    print("Companies data:", companies)
+    print('Data received successfully')
     tickers = []
-    # Iterate over the form data and retrieve ticker symbols and company names
-    for i in range(1, num_companies + 1):
-        ticker = request.form[f'ticker{i}']
-        company_name = request.form[f'company{i}']
-        companies.append((ticker, company_name))
+    for company in companies:
+        ticker = company[0]
         tickers.append(ticker)
+    # num_companies = int(request.form['numCompanies'])
+    # print(num_companies)
+    # Create a list to store the company data
+    # companies = []
+    # tickers = []
+    # # Iterate over the form data and retrieve ticker symbols and company names
+    # for i in range(1, num_companies + 1):
+    #     ticker = request.form[f'ticker{i}']
+    #     company_name = request.form[f'company{i}']
+    #     companies.append((ticker, company_name))
+    #     tickers.append(ticker)
     # Download 10-K filings for the list of companies
     print("------Downloading-------")
     download_10k_filings(companies)

@@ -3,153 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Input Form</title>
-    <style>
-        body {
-            font-family: Times New Roman, sans-serif;
-            background-color: #f0f0f1;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #666;
-        }
-
-        input[type="number"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-        #companyFields {
-            margin-top: 20px;
-        }
-
-        .graph-container {
-            margin-top: 50px;
-            text-align: center;
-        }
-
-        img.graph {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-    <title>Image Gallery</title>
+    <title>Input Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f1;
+            background-color: #d8aaf8; /* Lighter deep lilac background */
             margin: 0;
             padding: 0;
-        }
-
-        .image-gallery {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            min-height: 100vh;
         }
-        
-        .image-gallery img {
-            max-width: 200px;
-            max-height: 200px;
-            margin: 10px;
-            border: 1px solid #ccc;
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            background-color: #f0e6fa; /* Lighter lilac background */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+        }
+        .left-box {
+            width: 40%;
+            padding: 30px;
+            background-color: #e3d1f4; /* Light lavender background */
+            color: #333; /* Dark text */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .right-box {
+            width: 60%;
+            padding: 30px;
+            background-color: #f5f5f5; /* Light grey background */
+            border-radius: 0 10px 10px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .input-field {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="submit"], select {
+            width: calc(100% - 20px);
+            padding: 15px; /* Increased padding for larger buttons */
+            border: 1px solid #ccc; /* Light grey border */
             border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            font-size: 16px; /* Increased font size for better readability */
+        }
+        select {
+            width: 100%;
+            padding: 15px; /* Increased padding for larger buttons */
+        }
+        input[type="submit"] {
+            width: 100%;
+            background-color: #800080; /* Dark purple background */
+            color: #fff; /* White text */
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Smooth background color transition */
+            border: none; /* Remove border */
+        }
+        input[type="submit"]:hover {
+            background-color: #4b0082; /* Darker purple background on hover */
+        }
+        .graph-box {
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+        .graph-box img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .company-info {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .markdown {
+            font-size: 18px;
+            color: #666; /* Grey text */
+            margin-bottom: 10px;
         }
     </style>
 </head>
-</head>
 <body>
     <div class="container">
-        <h2>Enter Ticker Symbols and Company Names</h2>
-        <form action="/process_form" method="post">
-            <label for="numCompanies">Number of Companies:</label>
-            <input type="number" id="numCompanies" name="numCompanies" min="1" onchange="addFields()"><br>
-
-            <div id="companyFields">
-                <!-- Dynamic input fields will be added here -->
-            </div>
-
-            <input type="submit" value="Submit">
-        </form>
+        <div class="left-box">
+            <div class="markdown">Choose number of companies:</div>
+            <select id="numCompanies">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+            <button onclick="showInputs()">Submit</button>
+        </div>
+        <div class="right-box" id="companyEnteringBox" style="display: none;">
+            <div id="companyFields"></div>
+            <input type="submit" value="Submit" onclick="collectData()">
+        </div>
     </div>
 
     <div class="graph-container">
-        <h2>Result Graph</h2>
-        {% if graph_exists %}
-            <img src="{{ url_for('static', filename='graph.png') }}" alt="Graph" class="graph">
-        {% else %}
-            <!-- No graph available -->
-            <p>No graph available.</p>
-        {% endif %}
+        <!-- Graph boxes will be displayed here -->
     </div>
 
     <script>
-        function addFields() {
-            var numCompanies = document.getElementById("numCompanies").value;
-            var container = document.getElementById("companyFields");
-            container.innerHTML = ""; // Clear previous fields
-            
+        function showInputs() {
+            var numCompanies = parseInt(document.getElementById('numCompanies').value);
+            var companyFieldsHtml = '';
+
             for (var i = 1; i <= numCompanies; i++) {
-                var div = document.createElement("div");
-                div.innerHTML = `
-                    <label for="ticker${i}">Ticker Symbol:</label>
-                    <input type="text" id="ticker${i}" name="ticker${i}"><br>
-                    <label for="company${i}">Company Name:</label>
-                    <input type="text" id="company${i}" name="company${i}"><br>
-                `;
-                container.appendChild(div);
+                companyFieldsHtml += '<div class="input-field">';
+                companyFieldsHtml += '<input type="text" id="company' + i + 'Ticker" name="company' + i + 'Ticker" placeholder="Company ' + i + ' Ticker" required>';
+                companyFieldsHtml += '</div>';
+                companyFieldsHtml += '<div class="input-field">';
+                companyFieldsHtml += '<input type="text" id="company' + i + 'Name" name="company' + i + 'Name" placeholder="Company ' + i + ' Name" required>';
+                companyFieldsHtml += '</div>';
             }
+
+            document.getElementById('companyFields').innerHTML = companyFieldsHtml;
+            document.getElementById("companyEnteringBox").style.display = "block";
+        }
+
+        function collectData() {
+            var numCompanies = parseInt(document.getElementById('numCompanies').value);
+            var companies = [];
+
+            for (var i = 1; i <= numCompanies; i++) {
+                var ticker = document.getElementById('company' + i + 'Ticker').value;
+                var name = document.getElementById('company' + i + 'Name').value;
+                companies.push([ticker, name]);
+            }
+
+            var data = {
+                numCompanies: numCompanies,
+                companies: companies
+            };
+
+            // Use 'data' object containing numCompanies and companies array
+            console.log("Data to be sent:", data);
+
+            // Post data to server
+            fetch('/process_form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                // Handle response
+            })
+            .catch(error => {
+                // Handle error
+                console.error('Error:', error);
+            });
         }
     </script>
 </body>
 </html>
+
+
