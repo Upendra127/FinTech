@@ -3,13 +3,20 @@ from sec_edgar_downloader import Downloader
 from Sec_downloader import download_10k_filings
 from tqdm import tqdm
 import subprocess
+import os
 from sorter import sorter
+from deleter import delete_files_in_directory
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route ('/check_directory')
+def check_directory(path):
+    data = os.listdir(path)
+
 
 @app.route('/process_form', methods=['POST'])
 def process_form():
@@ -44,6 +51,7 @@ def process_form():
             download_10k_filings(companies)
         print(ticker)
         sorter(ticker)
+        #delete_files_in_directory("./static")
         subprocess.run(["python", "parser.py"])
         count +=1
 

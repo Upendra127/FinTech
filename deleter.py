@@ -21,7 +21,7 @@ def delete_files_in_directory(directory):
         except Exception as e:
             # Handle any errors that occur during file deletion
             print(f"Error deleting file {filepath}: {e}")
-
+count = 0
 # Example usage:
 directories = []
 directories.append("./sec-edgar-filings")

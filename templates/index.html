@@ -6,7 +6,7 @@
     <title>Input Form</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Times New Roman, sans-serif;
             background-color: #d8aaf8; /* Lighter deep lilac background */
             margin: 0;
             padding: 0;
@@ -25,7 +25,7 @@
             display: flex;
         }
         .left-box {
-            width: 60%;
+            width: 30%;
             padding: 30px;
             background-color: #e3d1f4; /* Light lavender background */
             color: #333; /* Dark text */
@@ -71,31 +71,10 @@
         input[type="submit"]:hover {
             background-color: #4b0082; /* Darker purple background on hover */
         }
-        .graph-container {
-            width: 40%;
-            padding: 30px;
-            background-color: #e3d1f4; /* Light lavender background */
-            color: #333; /* Dark text */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .loading-animation {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 18px;
-            color: #666;
-            background-color: #fff; /* Optional: Add background color */
-            padding: 20px; /* Optional: Add padding */
-            display: none; /* Initially hide the loading animation */
-        }
         .graph-box {
-            margin-bottom: 20px;
-            display: none;
+            margin-top: 20px;
+            text-align: center;
+            display: flex;
         }
         .graph-box img {
             max-width: 100%;
@@ -105,42 +84,53 @@
         }
         .company-info {
             font-size: 18px;
-            color: #333;
+            margin-bottom: 20px;
         }
         .markdown {
             font-size: 18px;
             color: #666; /* Grey text */
             margin-bottom: 10px;
-        }   
+        }
+        .graph-container {
+            width: 100%;
+            padding: 30px;
+            background-color: #f0e6fa; /* Light lavender background */
+            color: #333; /* Dark text */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="center-box">
-            <!-- Row 1: Input form -->
-            <div class="row" id="inputFormRow">
-                <div class="left-box">
-                    <div class="markdown">Choose number of companies:</div>
-                    <select id="numCompanies">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                    <button onclick="showInputs()">Submit</button>
-                </div>
-                <div class="right-box" id="companyEnteringBox" style="display: none;">
-                    <div id="companyFields"></div>
-                    <input type="submit" value="Submit" onclick="collectData()">
-                </div>
-            </div>
-            <!-- Row 2: Loading animation and Graph boxes -->
-            <div class="row" id="graphRow" style="display: none;">
-                <div class="loading-animation">Loading...</div>
-                <div id="graphBoxes"></div>
-            </div>
+        <div class="left-box">
+            <div class="markdown">Choose number of companies:</div>
+            <select id="numCompanies">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+            <button onclick="showInputs()">Submit</button>
         </div>
+        <div class="right-box" id="companyEnteringBox" style="display: none;">
+            <div id="companyFields"></div>
+            <input type="submit" value="Submit" onclick="collectData()">
+        </div>
+        <div id="graphContainer" class="graph-container">
+        <!-- Graph boxes will be displayed here -->
+           <div class="graph-box" id="graphBox1" style="display: none;">
+        <img src="path/to/your/image1.jpg" alt="Graph 1">
     </div>
-
+    <div class="graph-box" id="graphBox2" style="display: none;">
+        <img src="path/to/your/image2.jpg" alt="Graph 2">
+    </div>
+    <div class="graph-box" id="graphBox3" style="display: none;">
+        <img src="path/to/your/image3.jpg" alt="Graph 3">
+    </div>
+      </div>
+    </div>
 
     <script>
         function showInputs() {
@@ -178,10 +168,6 @@
             // Use 'data' object containing numCompanies and companies array
             console.log("Data to be sent:", data);
 
-            document.querySelectorAll('.graph-container').forEach(container => {
-            container.innerHTML = '<div class="loading"></div>';
-            });
-
             // Post data to server
             fetch('/process_form', {
                 method: 'POST',
@@ -192,14 +178,33 @@
             })
             .then(response => {
                 // Handle response
+                    displayGraphs(numCompanies);
             })
             .catch(error => {
                 // Handle error
                 console.error('Error:', error);
             });
         }
+
+        // Function to display graphs based on the number of companies
+        function displayGraphs(numCompanies) {
+            var graphContainer = document.getElementById('graphContainer');
+            graphContainer.innerHTML = ''; // Clear previous graphs
+
+            for (var i = 1; i <= numCompanies ; i++) {
+                var graphBox = document.createElement('div');
+                graphBox.className = 'graph-box';
+                var graphImg = document.createElement('img');
+                graphImg.src = '../static/graph_' + i + '.png'; // Assuming graph images are named as graph_1.png, graph_2.png, etc.
+                graphImg.alt = 'Graph ' + i;
+                graphBox.appendChild(graphImg);
+                graphContainer.appendChild(graphBox);
+            }
+        }
     </script>
 </body>
 </html>
+
+
 
 
