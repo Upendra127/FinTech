@@ -39,7 +39,7 @@ if not os.path.exists(static_dir):
 graph_name = "graph_{}.png".format(len(os.listdir(static_dir)) + 1)
 graph_path = os.path.join(static_dir, graph_name)
 
-plt.plot(vals)
+plt.plot(vals, marker = 'o')
 plt.xlabel("year")
 plt.ylabel("Performance")
 plt.savefig(graph_path)  # Save the image in the 'static' folder
