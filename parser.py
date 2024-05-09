@@ -26,7 +26,7 @@ import subprocess
 import pandas as pd
 
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-headers = {"Authorization": "Bearer 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"}
+headers = {"Authorization": "Bearer YOUR_API_KEY"}
 
 def query(payload):
     response = requests.post(API_URL, headers=headers, json=payload)
