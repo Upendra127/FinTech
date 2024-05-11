@@ -6,6 +6,7 @@ This repository contains the necessary files required for visualisation of stock
 ## How to Run?
 1. Run deleter.py
     - Ensure that the static folder has no previously stored images
+    - Install python version 3.12.2
 2. Add your HuggingFace Authorization key in parser.py (line no. 30)
 3. Run app.py
     - Load the URL printed in the terminal logs on your browser
